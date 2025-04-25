@@ -1,0 +1,26 @@
+###
+
+POST http://localhost:4000/users
+Content-Type: application/json
+
+{
+   
+    "name": "Toaster",
+    "email": "tiger@mail4.com"
+}
+
+###
+POST http://localhost:4000/notes
+Content-Type: application/json
+
+{
+    "title":"first Note",
+    "content":" hello im sad",
+    "tags":["bad","good"],
+    "is_pinned":true,
+    "user_id":1
+
+}
+
+###
+POST http://localhost:4000/notes

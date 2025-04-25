@@ -1,0 +1,75 @@
+###
+
+GET  http://localhost:4000/mongo/users
+
+###
+//เพิ่มรายชื่อ username
+POST  http://localhost:4000/mongo/users
+Content-Type: application/json
+
+{
+    "username": "test Person1213",
+    "email": "testperson@example.com1243",
+   "password": "ssdasasfsfsdfsd1"
+}
+
+###
+
+PUT   http://localhost:4000/mongo/users/680a7099a858b7ed5111024c
+Content-Type: application/json
+
+{
+   "username": "test Person123",
+    "email": "testperson@example.com123",
+   "password": "ssdasasfsfsdfsd13"
+}
+
+
+###
+DELETE   http://localhost:4000/mongo/users/680a7099a858b7ed5111024c
+
+
+### Get all notes
+GET http://localhost:4000/mongo/notes
+
+
+### Create a note
+POST http://localhost:4000/mongo/notes
+Content-Type: application/json
+
+{
+  "title": "Test Person",
+  "content": "testperson@1example.com",
+  "tags": ["nodejs", "express"],
+  "isPinned": false,
+  "userId": "667d791cd788728b158a7dd0"
+}
+
+
+### Register a new user
+POST http://localhost:4000/mongo/auth/register
+Content-Type: application/json
+
+{
+"fullName": "Donald Dee",
+"email": "donald.deck@example12.com",
+"password": "donald123"
+}
+
+### Login with the registered user
+POST http://localhost:4000/mongo/auth/login
+Content-Type: application/json
+
+{
+"email": "donald.deck@example12.com",
+"password": "donald123" 
+}
+
+###
+POST  http://localhost:4000/mongo/add-notes
+Content-Type: application/json
+Authorization: Bearer
+
+
+###
+
