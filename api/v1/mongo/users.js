@@ -1,11 +1,6 @@
 import express from "express";
 import { User } from "../../../modules/User.js";
-import {
-  createAllUsers,
-  getAllUsers,
-  updateUser,
-  deleteUser,
-} from "./controllers/userscontroller.js";
+import { createAllUsers,getAllUsers,updateUser,deleteUser,} from "./controllers/userscontroller.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
@@ -27,17 +22,17 @@ router.delete("/users/:id", deleteUser);
 router.post("/auth/register", async (req, res) => {
   const { fullName, email, password } = req.body;
   if (!fullName || !email || !password) {
-    res.status(400).json({
+    return res.status(400).json({
       error: true,
       message: "All fields are required",
     });
   }
   try {
     const existingUser = await User.findOne({
-      email,
+      email
     });
     if (existingUser) {
-      res.status(409).json({
+        return res.status(409).json({
         error: true,
         message: "Email already in use.",
       });
@@ -62,7 +57,7 @@ router.post("/auth/register", async (req, res) => {
 router.post("/auth/login", async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password) {
-    res.status(400).json({
+    return res.status(400).json({
       error: true,
       message: "Email and password are required.",
     });
@@ -71,16 +66,16 @@ router.post("/auth/login", async (req, res) => {
   try {
     const user = await User.findOne({ email });
     if (!user) {
-      res.status(401).json({
+        return res.status(401).json({
         error: true,
-        message: "Invalid credentials",
+        message: "Invalid credentials 71",
       });
     }
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      res.status(401).json({
+        return res.status(401).json({
         error: true,
-        message: "Invalid credentials",
+        message: "Invalid credentials 78",
       });
     }
 
@@ -88,7 +83,7 @@ router.post("/auth/login", async (req, res) => {
       expiresIn: "1h",
     });
 
-    res.json({
+    return res.json({
       error: false,
       token,
       message: "Login successful!",

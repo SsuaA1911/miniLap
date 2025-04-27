@@ -52,7 +52,7 @@ Content-Type: application/json
 
 {
 "fullName": "Donald Dee",
-"email": "donald.deck@example12.com",
+"email": "donald.deck@example23.com",
 "password": "donald123"
 }
 
@@ -61,15 +61,21 @@ POST http://localhost:4000/mongo/auth/login
 Content-Type: application/json
 
 {
-"email": "donald.deck@example12.com",
+"email": "donald.deck@example23.com",
 "password": "donald123" 
 }
 
 ###
-POST  http://localhost:4000/mongo/add-notes
+POST  http://localhost:4000/mongo/add-note
 Content-Type: application/json
-Authorization: Bearer
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODBiNGNlZTI0YTY2ZGNmYWRiMGU4ZTEiLCJpYXQiOjE3NDU1NzEwODIsImV4cCI6MTc0NTU3NDY4Mn0.h1zZIXdEOAnrT26bHC2uKCBQvMO1RWR-Bz_mfv9IxbY
+
+{
+"title":"Funny'day",
+"content":"so funny",
+"tags" :["important","yesterday"]
+
+}
 
 
-###
 
