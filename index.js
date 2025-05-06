@@ -22,9 +22,8 @@ const corsOptions = {
   credentials: true,// ✅ allow cookies to be sent
 }
 
-
-app.use(limiter);
 app.use(cors(corsOptions));
+app.use(limiter);
 app.use(express.json());
 app.use(cookieParser());
 app.use("/", apiRoutes(db));
