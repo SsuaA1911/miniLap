@@ -95,3 +95,4 @@ export const createAllUsers = async (req, res) => {
     });
   }
 };
+

@@ -1,6 +1,19 @@
 import express from "express";
 import { Notes } from "../../../modules/Note.js";
-import { createNotes, getAllNotes } from "./controllers/notescontroller.js";
+import {
+  createNotes,
+  editNotes,
+  getAllNotes,
+  addNote,
+  searchNote,
+  getUserNotes,
+  deleteUserNote,
+  togglePin,
+  getNoteById,
+  publicNoteUser,
+  publicNoteUserById,
+  updateNoteVisibility,
+} from "./controllers/notescontroller.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { authUser } from "../../../middleware/auth.js";
@@ -14,103 +27,32 @@ router.get("/notes", getAllNotes);
 router.post("/notes", createNotes);
 
 // Add Note
-router.post("/add-note", authUser, async (req, res) => {
-  const { title, content, tags = [], isPinned = false } = req.body;
-
-  const { user } = req.user;
-
-  if (!title || !content) {
-    return res.status(400).json({
-      error: true,
-      message: "All fields required!",
-    });
-  }
-
-  if (!user || !user._id) {
-    return res.status(400).json({
-      error: true,
-      message: "Invalid user credentials!",
-    });
-  }
-
-  try {
-    const note = await Notes.create({
-      title,
-      content,
-      tags,
-      isPinned,
-      userId: user._id,
-    });
-
-    await note.save();
-    res.json({
-      error: false,
-      note,
-      message: "Note added successfully!",
-    });
-  } catch (err) {
-    res.status(500).json({
-      error: true,
-      message: "Internal Server Error",
-    });
-  }
-});
+router.post("/add-note", authUser, addNote);
 
 //Edit Note
-// router.put("/edit-note-pinned/:noteId")
+router.put("/edit-note/:noteId", authUser, editNotes);
 
 //Update isPinned
-// router.put("/update-note-pinned/:noteId");
+router.put("/update-note-pinned/:noteId", togglePin);
 
 //Get notes by user
-router.post("/get-all-notes", authUser, async (req, res) => {
-  const { user } = req.user;
-  try {
-    const notes = await Note.find({ userId: user._id }).sort({ isPinned: -1 });
-    res.json({
-      err: false,
-      notes,
-      message: "All notes retreived!",
-    });
-  } catch (error) {
-    res.status(500).json({
-      error: true,
-      message: "Internal Server Error",
-    });
-  }
-});
+router.get("/get-all-notes", authUser, getUserNotes);
 
 //Delete note
-// router.delete("/delete-note/:noteId")
+router.delete("/delete-note/:noteId", authUser, deleteUserNote);
 
 //Search notes
-router.get("/search-note/", authUser, async (req, res) => {
-  const { userId } = req.user;
-  const { query } = req.query;
-  if (!query) {
-    return res
-      .status(400)
-      .json({ error: true, message: "Search query is required!" });
-  }
-  try {
-    const matchingNotes = await Note.find({
-      userId: user._id,
-      $or: [
-        { title: { $regex: new RegExp(query, "i") } },
-        { content: { $regex: new RegExp(query, "i") } },
-      ],
-    });
-    res.json({
-      error: false,
-      notes: matchingNotes,
-      message: "Notes matching the search query retrieved success!",
-    });
-  } catch (error) {
-    res.status(500).json({
-      error: true,
-      message: "Internal Server Error",
-    });
-  }
-});
+router.get("/search-notes", authUser, searchNote);
+
+router.get("/get-note/:noteId", authUser, getNoteById);
+
+// Get public profile by user ID
+router.get("/public-profile/:userId", publicNoteUserById);
+
+// Get public notes for a user
+router.get("/public-notes/:userId", publicNoteUser);
+
+// Update note visibility (publish/unpublish)
+router.put("/notes/:noteId/visibility", authUser, updateNoteVisibility);
 
 export default router;
