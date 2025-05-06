@@ -197,7 +197,7 @@ export const searchNote = async (req, res) => {
 
 //Get notes by user
 export const getUserNotes = async (req, res) => {
-  console.log("test log req", req);
+  // console.log("test log req", req);
 
   const { user } = req.user;
 

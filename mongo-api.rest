@@ -88,3 +88,7 @@ GET  http://localhost:4000/mongo/get-all-notes
 
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODBiNGNlZTI0YTY2ZGNmYWRiMGU4ZTEiLCJpYXQiOjE3NDY0Njg5MTIsImV4cCI6MTc0NjQ3MjUxMn0.AyN3fmasH2cDqMa3ijZ05tRU2cfXxOdjOcn-vVz-RDo
+
+###
+GET  http://localhost:4000/mongo/auth/profile
+Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODE4ZGJlYmI0ZjA0ZWZlMDcwN2Q1ZjUiLCJpYXQiOjE3NDY1MjM1NjMsImV4cCI6MTc0NjUyNzE2M30.hylfJON_s2LqbIqGvAHhzGv1nyd-n1OgEvGgq1t0UUE

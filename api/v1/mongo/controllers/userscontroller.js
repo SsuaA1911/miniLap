@@ -17,7 +17,7 @@ export const getAllUsers = async (req, res) => {
 export const updateUser = async (req, res) => {
   const { id } = req.params;
   const updates = req.body;
-  console.log(req, "test");
+  // console.log(req, "test");
 
   try {
     const updatedUser = await User.findByIdAndUpdate(id, updates, {
@@ -35,7 +35,7 @@ export const updateUser = async (req, res) => {
 
 export const deleteUser = async (req, res) => {
   const { id } = req.params;
-  console.log("testdelete", req);
+  // console.log("testdelete", req);
   try {
     const deleteUser = await User.findOneAndDelete(id);
     if (deleteUser) {

@@ -175,12 +175,18 @@ router.post("/auth/cookie/login", async (req, res) => {
 
 // GET Current User Profile (protected route)
 router.get("/auth/profile",authUser,async(req,res)=>{
-  const user = User.findById(req.user.user._id).select("-password"); // exclude password
-  if(!user){
-    res.status(404).json({error: true, message: "User not found" })
+  try {
+  
+  const user = await User.findById(req.user.user._id).select("-password"); // exclude password
+   if(!user){
+    return res.status(404).json({error: true, message: "User not found" })
   }
 
-  res.status(200).json({error: false, user});
+  res.status(200).json({error: false,user});
+}catch(err){
+  console.log(err)
+  res.status(500).json({err:true,message: "/auth/profile/err"})
+}
 });
 
 //LOGOUT
